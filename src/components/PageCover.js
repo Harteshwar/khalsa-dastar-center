@@ -1,5 +1,5 @@
 import React from 'react';
-import './PageCover.css';
+import './CSS/PageCover.css';
 
 function PageCover({ title, children }) {
   return (
