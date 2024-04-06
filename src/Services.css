@@ -1,0 +1,74 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+
+.services {
+    background-color: #000;
+    color: #fff;
+    background-image: url('assets/turban23.png');
+    background-size: cover;
+    background-position: center;
+}
+
+.services-container {
+    display: flex;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 40px;
+}
+
+.services-image {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.services-image img {
+    max-width: 200%;
+    height: 110%;
+    transform: translate(-200px, -10px);
+}
+
+.services-content {
+    flex: 2;
+    padding-left: 40px;
+}
+
+h2 {
+    font-family: 'Roboto', sans-serif;
+    font-size: 36px;
+    color: #ff0000; /* Gold */
+    margin-bottom: 20px;
+}
+
+.service-item {
+    margin-bottom: 40px;
+}
+
+.service-item h3 {
+    font-family: 'Roboto', sans-serif;
+    font-size: 24px;
+    margin-bottom: 10px;
+}
+
+/* Colors for each service title */
+#patiala-shahi { color: #e9801e; }
+#amritsari-pagg { color: #d40040; }
+#wattan-wali { color: #4CAF50; }
+#multi-larh { color: #3ab7ad; }
+#safa-hindu { color: #FF9800; }
+#dumalla { color: #3F51B5; }
+
+/* Colors for each service description */
+#patiala-shahi p { color: #FFC107; } /* Amber */
+#amritsari-pagg p { color: #009688; } /* Teal */
+#wattan-wali p { color: #8BC34A; } /* Light Green */
+#multi-larh p { color: #9C27B0; } /* Purple */
+#safa-hindu p { color: #FF5722; } /* Deep Orange */
+#dumalla p { color: #00BCD4; } /* Light Blue */
+
+p {
+    font-family: 'Roboto', sans-serif;
+    font-size: 18px;
+    line-height: 1.6;
+    color: #39a8dc; /* Electric Lime for general text */
+}

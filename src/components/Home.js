@@ -64,7 +64,7 @@ function Home() {
       <div className="home-content">
         <img src={logo} alt="Khalsa Dastar Center Logo" className="home-logo" />
         <h1>Expert Turban Tying Service</h1>
-        <h2> Hire a Professional </h2>
+        <h2>Hire a Professional</h2>
         <button className="book-now-btn" onClick={toggleBookingModal}>
           Inquire Now
         </button>
