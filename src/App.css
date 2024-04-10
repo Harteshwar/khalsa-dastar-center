@@ -2,7 +2,8 @@
   font-family: Arial, sans-serif;
   display: flex;
   flex-direction: column;
-  min-height: 100vh; /* Full viewport height */
+  min-height: 100vh;
+  /* Full viewport height */
 }
 
 .navbar {
@@ -42,37 +43,23 @@
   padding: 5px;
 }
 
-.navbar a:hover, .navbar a:focus {
+.navbar a:hover,
+.navbar a:focus {
   background-color: #575757;
   border-radius: 5px;
 }
 
 .content {
-  flex: 1; /* Takes up the available space */
-  margin-top: 80px; /* Adjusted if you have a fixed navbar */
-  padding-bottom: 50px; /* Space for the footer */
+  flex: 1;
+  /* Takes up the available space */
+  margin-top: 80px;
+  /* Adjusted if you have a fixed navbar */
+  padding-bottom: 50px;
+  /* Space for the footer */
 }
 
 .home {
   position: relative;
-}
-
-.slideshow {
-  position: relative;
-  width: 100%;
-  padding-top: 56.25%;
-  overflow: hidden;
-}
-
-.slideshow img {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover; /* Changed from contain to cover for a better visual effect */
-  opacity: 0;
-  transition: opacity 0.5s ease-in-out;
 }
 
 .home-content {
@@ -93,20 +80,23 @@
     flex-direction: column;
     align-items: center;
   }
-  
+
   .navbar li {
     display: block;
     margin: 5px 0;
   }
 
-  .home-content, .hire-professional {
+  .home-content,
+  .hire-professional {
     padding: 10px;
     font-size: smaller;
   }
 }
 
 /* Form styles */
-input, select, textarea {
+input,
+select,
+textarea {
   width: 100%;
   padding: 10px;
   margin: 5px 0;
@@ -116,8 +106,8 @@ input, select, textarea {
   box-sizing: border-box;
 }
 
-input[type=submit] {
-  background-color: #4CAF50;
+input[type='submit'] {
+  background-color: #4caf50;
   color: white;
   padding: 14px 20px;
   margin: 8px 0;
@@ -126,7 +116,7 @@ input[type=submit] {
   cursor: pointer;
 }
 
-input[type=submit]:hover {
+input[type='submit']:hover {
   background-color: #45a049;
 }
 
@@ -139,4 +129,21 @@ input[type=submit]:hover {
   position: sticky;
   bottom: 0;
   width: 100%;
+}
+
+.social-icons {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 10px;
+}
+
+.social-icons a {
+  color: #fff;
+  font-size: 24px;
+  margin: 0 10px;
+  transition: color 0.3s ease;
+}
+
+.social-icons a:hover {
+  color: #ff0000;
 }
