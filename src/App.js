@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
 import { Navbar, Nav, Container, Button, Row, Col } from 'react-bootstrap';
 import { FaFacebook, FaInstagram, FaTiktok } from 'react-icons/fa';
@@ -13,17 +13,27 @@ import Contact from './components/Contact';
 import BookingForm from './BookingForm';
 
 function App() {
+  const [menuOpen, setMenuOpen] = useState(false);
+
+  const handleToggle = () => {
+    setMenuOpen(!menuOpen);
+  };
+
+  const closeMenu = () => {
+    setMenuOpen(false);
+  };
+
   return (
     <Router>
       <div className="app">
-        <Navbar bg="dark" variant="dark" expand="lg" sticky="top">
+        <Navbar bg="dark" variant="dark" expand="lg" sticky="top" expanded={menuOpen}>
           <Container>
-            <Navbar.Brand as={Link} to="/">
+            <Navbar.Brand as={Link} to="/" onClick={closeMenu}>
               <img src={logo} alt="Khalsa Dastar Center Logo" style={{ height: '30px', width: 'auto' }} />
             </Navbar.Brand>
-            <Navbar.Toggle aria-controls="basic-navbar-nav" />
+            <Navbar.Toggle aria-controls="basic-navbar-nav" onClick={handleToggle} />
             <Navbar.Collapse id="basic-navbar-nav">
-              <Nav className="me-auto">
+              <Nav className="me-auto" onClick={closeMenu}>
                 <Nav.Link as={Link} to="/">Home</Nav.Link>
                 <Nav.Link as={Link} to="/services">Services</Nav.Link>
                 <Nav.Link as={Link} to="/turbans">Turbans</Nav.Link>
@@ -31,7 +41,7 @@ function App() {
                 <Nav.Link as={Link} to="/contact">Contact</Nav.Link>
               </Nav>
               <Nav>
-                <Button variant="outline-light" as={Link} to="/book" className="d-block d-lg-none">
+                <Button variant="outline-light" as={Link} to="/book" className="d-block d-lg-none" onClick={closeMenu}>
                   Inquire Now
                 </Button>
               </Nav>
@@ -61,9 +71,15 @@ function App() {
               </Col>
               <Col xs={12} md={6} className="text-center text-md-end">
                 <div className="social-icons">
-                  <a href="https://www.facebook.com" target="_blank" rel="noopener noreferrer"><FaFacebook /></a>
-                  <a href="https://www.instagram.com" target="_blank" rel="noopener noreferrer"><FaInstagram /></a>
-                  <a href="https://www.tiktok.com" target="_blank" rel="noopener noreferrer"><FaTiktok /></a>
+                  <a href="https://www.facebook.com/photo.php?fbid=388399094119514&set=a.388399110786179&type=3&mibextid=cr9u03" target="_blank" rel="noopener noreferrer">
+                    <FaFacebook />
+                  </a>
+                  <a href="https://www.instagram.com/khalsa_dastar_center?igsh=OGQ5ZDc2ODk2ZA%3D%3D&utm_source=qr" target="_blank" rel="noopener noreferrer">
+                    <FaInstagram />
+                  </a>
+                  <a href="https://www.tiktok.com/@khalsadastarcenter?_t=8kkHha5Q3v4&_r=1" target="_blank" rel="noopener noreferrer">
+                    <FaTiktok />
+                  </a>
                 </div>
               </Col>
             </Row>
