@@ -1,34 +1,21 @@
 import React, { useState } from 'react';
 import firebase, { getFunctions, httpsCallable } from './firebase';
-import Modal from 'react-modal';
+import { Form, Button, Container, Row, Col } from 'react-bootstrap';
+import './BookingForm.css';
+import moment from 'moment-timezone';
 
-const customModalStyles = {
-  content: {
-    top: '50%',
-    left: '50%',
-    right: 'auto',
-    bottom: 'auto',
-    marginRight: '-50%',
-    transform: 'translate(-50%, -50%)',
-    backgroundColor: '#fff',
-    borderRadius: '10px',
-    boxShadow: '0px 4px 6px rgba(0, 0, 0, 0.2)',
-    padding: '20px',
-  },
-  overlay: {
-    backgroundColor: 'rgba(0, 0, 0, 0.5)',
-  },
-};
-
-Modal.setAppElement('#root'); // Adjust the selector if needed
-
-const BookingFormModal = ({ isOpen, onRequestClose }) => {
+const BookingForm = () => {
   const [formData, setFormData] = useState({
     name: '',
-    numPeople: 1,
+    email: '',
+    phone: '',
     date: '',
     time: '',
-    location: '',
+    numTurbans: 1,
+    turbanColor: '',
+    turbanStyle: '',
+    address: '',
+    specialRequirements: '',
   });
 
   const [formErrors, setFormErrors] = useState({});
@@ -45,172 +32,145 @@ const BookingFormModal = ({ isOpen, onRequestClose }) => {
   const validateForm = () => {
     const errors = {};
 
-    if (!formData.name) {
-      errors.name = 'Name is required';
-    }
-
-    if (!formData.date) {
-      errors.date = 'Date is required';
-    }
-
-    if (!formData.time) {
-      errors.time = 'Time is required';
-    }
-
-    if (!formData.location) {
-      errors.location = 'Location is required';
-    }
+    if (!formData.name) errors.name = 'Name is required';
+    if (!formData.email) errors.email = 'Email is required';
+    if (!formData.phone) errors.phone = 'Phone number is required';
+    if (!formData.date) errors.date = 'Date is required';
+    if (!formData.time) errors.time = 'Time is required';
+    if (!formData.address) errors.address = 'Address is required';
 
     setFormErrors(errors);
-
     return Object.keys(errors).length === 0;
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
-    if (!validateForm()) {
-      return;
-    }
+    if (!validateForm()) return;
 
     setIsSubmitting(true);
+
+    // Format the time to 12-hour format with AM/PM
+    const formattedTime = moment(formData.time, "HH:mm").format("hh:mm A");
+
+    // Update formData with the formatted time
+    const formattedData = { ...formData, time: formattedTime };
 
     try {
       const functions = getFunctions(firebase);
       const sendFormData = httpsCallable(functions, 'sendFormDataEmail');
-      const result = await sendFormData(formData);
+      const result = await sendFormData(formattedData);
 
       if (result.data.success) {
         console.log('Form data sent successfully');
-        // Reset form data and show a success message
         setFormData({
           name: '',
-          numPeople: 1,
+          email: '',
+          phone: '',
           date: '',
           time: '',
-          location: '',
+          numTurbans: 1,
+          turbanColor: '',
+          turbanStyle: '',
+          address: '',
+          specialRequirements: '',
         });
         setIsSubmitted(true);
       } else {
         console.error('Error sending form data:', result.data.error);
-        // Show an error message
         alert(`Error sending form data: ${result.data.error}`);
       }
     } catch (error) {
       console.error('Error sending form data:', error);
-      // Show an error message
       alert(`Error sending form data: ${error.message}`);
     }
 
     setIsSubmitting(false);
   };
 
-  const closeModal = () => {
+  const handleReset = () => {
+    setFormData({
+      name: '',
+      email: '',
+      phone: '',
+      date: '',
+      time: '',
+      numTurbans: 1,
+      turbanColor: '',
+      turbanStyle: '',
+      address: '',
+      specialRequirements: '',
+    });
+    setFormErrors({});
     setIsSubmitted(false);
-    onRequestClose();
   };
 
   return (
-    <Modal
-      isOpen={isOpen}
-      onRequestClose={closeModal}
-      contentLabel="Book Turban Tying Service"
-      style={customModalStyles}
-    >
+    <Container className="booking-form-container">
       {isSubmitted ? (
         <div className="success-message">
           <h2>Thank you for your booking!</h2>
-          <p>
-            We have received your request for the Turban Tying Service. Our team will review your
-            booking details and contact you within 48 hours to confirm your appointment and provide
-            further instructions.
-          </p>
-          <p>
-            If you have any immediate questions or concerns, please feel free to reach out to us at{' '}
-            <a href="mailto:khalsadastarcenter@gmail.com">info@example.com</a> or call us at{' '}
-            <a href="tel:+1234567890">+1 (234) 567-890</a>.
-          </p>
-          <button type="button" onClick={closeModal}>
-            Close
-          </button>
+          <p>We have received your request for the Turban Tying Service. Our team will review your booking details and contact you within 48 hours to confirm your appointment and provide further instructions.</p>
+          <p>If you have any immediate questions or concerns, please feel free to reach out to us at <a href="mailto:khalsadastarcenter@gmail.com">khalsadastarcenter@gmail.com</a>.</p>
+          <Button variant="primary" onClick={handleReset}>Book Another Appointment</Button>
         </div>
       ) : (
         <>
-          <h2>Book Turban Tying Service</h2>
-          <form onSubmit={handleSubmit}>
-            <div>
-              <label htmlFor="name">Name:</label>
-              <input
-                type="text"
-                id="name"
-                name="name"
-                value={formData.name}
-                onChange={handleChange}
-                required
-              />
-              {formErrors.name && <span className="error">{formErrors.name}</span>}
+          <div className="form-header">
+            <h2>Book Turban Tying Service</h2>
+            <p className="form-note">Please fill out the form below, and someone from our team will contact you within 48 hours to confirm your booking and provide further instructions.</p>
+          </div>
+          <Form onSubmit={handleSubmit} className="booking-form">
+            <Row>
+              <Col md={6}><FormInput label="Name" type="text" name="name" value={formData.name} handleChange={handleChange} isInvalid={formErrors.name} /></Col>
+              <Col md={6}><FormInput label="Email" type="email" name="email" value={formData.email} handleChange={handleChange} isInvalid={formErrors.email} /></Col>
+            </Row>
+            <Row>
+              <Col md={6}><FormInput label="Phone" type="tel" name="phone" value={formData.phone} handleChange={handleChange} isInvalid={formErrors.phone} /></Col>
+              <Col md={6}><FormInput label="Date" type="date" name="date" value={formData.date} handleChange={handleChange} isInvalid={formErrors.date} /></Col>
+            </Row>
+            <Row>
+              <Col md={6}><FormInput label="Time" type="time" name="time" value={formData.time} handleChange={handleChange} isInvalid={formErrors.time} /></Col>
+              <Col md={6}><FormInput label="Number of Turbans" type="number" name="numTurbans" value={formData.numTurbans} min="1" handleChange={handleChange} /></Col>
+            </Row>
+            <Row>
+              <Col md={6}><FormInput label="Preferred Turban Color" type="text" name="turbanColor" value={formData.turbanColor} handleChange={handleChange} /></Col>
+              <Col md={6}><FormInput label="Turban Style" type="text" name="turbanStyle" value={formData.turbanStyle} handleChange={handleChange} /></Col>
+            </Row>
+            <Row>
+              <Col md={12}><FormInput label="Address" type="text" name="address" value={formData.address} handleChange={handleChange} isInvalid={formErrors.address} /></Col>
+            </Row>
+            <Form.Group controlId="specialRequirements">
+              <Form.Label>Special Requirements</Form.Label>
+              <Form.Control as="textarea" name="specialRequirements" value={formData.specialRequirements} onChange={handleChange} rows={3} />
+            </Form.Group>
+            <div className="form-actions">
+              <Button variant="primary" type="submit" disabled={isSubmitting}>{isSubmitting ? 'Submitting...' : 'Submit'}</Button>
+              <Button variant="secondary" onClick={handleReset} disabled={isSubmitting}>Cancel</Button>
             </div>
-            <div>
-              <label htmlFor="numPeople">Number of People:</label>
-              <input
-                type="number"
-                id="numPeople"
-                name="numPeople"
-                value={formData.numPeople}
-                onChange={handleChange}
-                min="1"
-                required
-              />
-            </div>
-            <div>
-              <label htmlFor="date">Date:</label>
-              <input
-                type="date"
-                id="date"
-                name="date"
-                value={formData.date}
-                onChange={handleChange}
-                required
-              />
-              {formErrors.date && <span className="error">{formErrors.date}</span>}
-            </div>
-            <div>
-              <label htmlFor="time">Time:</label>
-              <input
-                type="time"
-                id="time"
-                name="time"
-                value={formData.time}
-                onChange={handleChange}
-                required
-              />
-              {formErrors.time && <span className="error">{formErrors.time}</span>}
-            </div>
-            <div>
-              <label htmlFor="location">Location:</label>
-              <input
-                type="text"
-                id="location"
-                name="location"
-                value={formData.location}
-                onChange={handleChange}
-                required
-              />
-              {formErrors.location && <span className="error">{formErrors.location}</span>}
-            </div>
-            <div className="modal-actions">
-              <button type="submit" disabled={isSubmitting}>
-                {isSubmitting ? 'Submitting...' : 'Submit'}
-              </button>
-              <button type="button" onClick={closeModal} disabled={isSubmitting}>
-                Cancel
-              </button>
-            </div>
-          </form>
+          </Form>
         </>
       )}
-    </Modal>
+    </Container>
   );
 };
 
-export default BookingFormModal;
+function FormInput({ label, type, name, value, handleChange, isInvalid }) {
+  return (
+    <Form.Group controlId={name}>
+      <Form.Label>{label}</Form.Label>
+      <Form.Control
+        type={type}
+        name={name}
+        value={value}
+        onChange={handleChange}
+        isInvalid={!!isInvalid}
+        required
+      />
+      <Form.Control.Feedback type="invalid">
+        {isInvalid}
+      </Form.Control.Feedback>
+    </Form.Group>
+  );
+}
+
+export default BookingForm;

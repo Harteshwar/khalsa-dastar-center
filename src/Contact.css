@@ -7,6 +7,7 @@
   justify-content: center;
   align-items: center;
   font-family: 'Roboto', sans-serif;
+  padding: 20px; /* Added padding for better spacing on smaller screens */
 }
 
 .background-image {
@@ -21,42 +22,45 @@
   z-index: -1;
 }
 
+/* Enhanced responsive adjustments for the background image */
+@media (max-width: 768px) {
+  .background-image {
+    background-size: cover; /* keep cover but ensure the focus of the image is maintained */
+    background-position: center; /* adjust this if the focus is not maintained */
+  }
+}
+
 .contact-container {
   max-width: 800px;
-  margin: 0 auto;
+  width: 100%; /* Ensures the container uses up to 800px but no more, adjusts to smaller widths */
+  background: rgba(255, 255, 255, 0.95); /* Enhance readability against potentially busy background */
+  padding: 30px;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* Soften the shadow for a more modern look */
+  margin: auto; /* Center the container on all screen sizes */
 }
 
 .contact-card {
-  background-color: rgba(255, 255, 255, 0.9);
-  border-radius: 10px;
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-  padding: 30px;
-  text-align: center;
+  background-color: transparent; /* Remove additional background to use container's style */
+  border: none; /* Remove border for a cleaner look */
 }
 
 .contact-card .card-title {
-  color: #007bff;
-  font-size: 28px;
-  margin-bottom: 20px;
+  color: #007bff; /* Theme color for consistency */
+  font-size: 28px; /* Responsive font size can be adjusted if needed */
 }
 
-.contact-card .card-text {
-  font-size: 18px;
-  color: #555;
-  margin-bottom: 30px;
+.contact-card .card-text, .contact-method .card-text {
+  color: #333; /* Darker color for better readability */
+  font-size: 18px; /* Adjust font size for consistency across devices */
+  margin-bottom: 15px; /* Consistent spacing */
 }
 
 .contact-info {
   display: flex;
-  justify-content: center;
+  justify-content: space-around; /* Improve spacing and distribution */
   flex-wrap: wrap;
-}
-
-.contact-method {
-  display: flex;
-  align-items: center;
-  margin: 10px 20px;
-  cursor: pointer;
+  margin-top: 20px; /* Add space between text and contact icons */
 }
 
 .contact-icon {
@@ -65,14 +69,8 @@
   margin-right: 10px;
 }
 
-.contact-method .card-text {
-  font-size: 20px;
-  color: #007bff;
-  margin-bottom: 0;
-}
-
 @media (max-width: 768px) {
-  .contact-card {
-    padding: 20px;
+  .contact-container, .contact-card {
+    padding: 20px; /* Slightly reduce padding on smaller screens */
   }
 }

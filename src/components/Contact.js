@@ -27,11 +27,11 @@ function Contact() {
                   Whether you're looking to book an appointment or have questions about our turban tying services, we're here to help. Reach out to us and let's talk about how we can bring a regal touch to your attire.
                 </Card.Text>
                 <div className="contact-info">
-                  <div className="contact-method">
+                  <div className="contact-method" aria-label="Call us">
                     <FaPhone className="contact-icon" onClick={handlePhoneClick} />
                     <Card.Text>510-365-2300</Card.Text>
                   </div>
-                  <div className="contact-method">
+                  <div className="contact-method" aria-label="Email us">
                     <FaEnvelope className="contact-icon" onClick={handleEmailClick} />
                     <Card.Text>khalsadastarcenter@gmail.com</Card.Text>
                   </div>

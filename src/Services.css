@@ -1,19 +1,42 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
 
 .services {
-  background-color: #000;
+  position: relative;
   color: #fff;
   min-height: 100vh;
-  padding-top: 60px; /* Add space for the fixed navbar */
   display: flex;
   flex-direction: column;
+  background-color: #282828; /* Providing a fallback color for background */
+}
+
+.services-background {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: #000;
+  z-index: -1;
+}
+
+.logo-overlay {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 200px;
+  height: 200px;
+  background-image: url('./assets/turban23.png');
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
+  opacity: 0.2;
 }
 
 .services-container {
   max-width: 1200px;
   margin: 0 auto;
-  padding: 20px;
-  flex: 1; /* Allow the container to grow and take up remaining space */
+  padding: 80px 20px;
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
@@ -21,71 +44,58 @@
 }
 
 .hero-image-container {
-  flex: 0 0 auto;
-  margin-right: 40px;
-  max-width: 40%;
-  order: 1;
+  flex: 0 0 40%; /* Ensuring the hero image takes up 40% of the container */
 }
 
 .hero-image {
-  max-width: 100%;
+  width: 100%;
   height: auto;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); /* Slightly stronger shadow for depth */
 }
 
 .services-content {
-  flex: 1 1 600px;
-  order: 2;
-  overflow-y: auto; /* Add scrolling for the content */
+  flex: 1 1 600px; /* Ensuring content takes remaining space */
+  padding-left: 20px; /* Adding some padding for separation */
 }
 
 h2 {
-  font-family: 'Roboto', sans-serif;
-  font-size: 36px;
-  color: #ff0000;
-  margin-bottom: 20px;
+  font-size: 2rem; /* Adjusting for readability across devices */
+  color: #ff0000; /* Ensuring contrast with background */
+}
+
+.service-items {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 20px; /* Reducing gap for tighter layout */
 }
 
 .service-item {
-  background-color: #1c1c1c;
+  background-color: rgba(0, 0, 0, 0.6); /* Making background slightly lighter for text readability */
   padding: 20px;
   border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  margin-bottom: 20px;
-  transition: background-color 0.3s ease;
+  transition: transform 0.3s ease;
 }
 
 .service-item:hover {
-  background-color: #2c2c2c;
+  transform: translateY(-10px); /* Increasing hover effect for more impact */
 }
 
 .service-item h3 {
-  font-family: 'Roboto', sans-serif;
-  font-size: 24px;
-  margin-bottom: 10px;
-  color: #39a8dc;
+  color: #39a8dc; /* Brighter color for titles */
 }
 
 p {
-  font-family: 'Roboto', sans-serif;
-  font-size: 18px;
-  line-height: 1.6;
-  color: #ccc;
+  line-height: 1.4; /* Improving text flow */
 }
 
-@media (max-width: 768px) {
+@media (max-width: 991.98px) {
   .services-container {
     flex-direction: column;
     align-items: center;
   }
 
   .hero-image-container {
-    margin-right: 0;
-    margin-bottom: 20px;
-    max-width: 80%;
-    order: 2;
-  }
-
-  .services-content {
-    order: 1;
+    max-width: 100%; /* Full width on smaller screens */
   }
 }

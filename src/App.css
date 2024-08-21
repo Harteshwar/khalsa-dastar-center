@@ -1,16 +1,19 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+
+/* Base styles to ensure consistency across the site */
 .app {
-  font-family: Arial, sans-serif;
+  font-family: 'Roboto', sans-serif; /* Uniform font for the whole app */
   display: flex;
   flex-direction: column;
   min-height: 100vh;
-  /* Full viewport height */
 }
 
+/* Navigation styles */
 .navbar {
   display: flex;
   align-items: center;
   background-color: #333;
-  padding: 10px;
+  padding: 0.5rem 1rem;
 }
 
 .navbar.fixed-top {
@@ -22,8 +25,8 @@
 }
 
 .logo img {
-  height: 50px;
-  margin-right: 20px;
+  height: auto;
+  width: 120px; /* Consistent logo size */
 }
 
 .navbar ul {
@@ -49,32 +52,43 @@
   border-radius: 5px;
 }
 
+/* Main content styles */
 .content {
   flex: 1;
-  /* Takes up the available space */
   margin-top: 80px;
-  /* Adjusted if you have a fixed navbar */
   padding-bottom: 50px;
-  /* Space for the footer */
 }
 
-.home {
-  position: relative;
-}
-
-.home-content {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+/* Footer styles */
+.footer {
+  background-color: #222; /* Slightly lighter for subtle contrast */
+  color: white;
   text-align: center;
-  color: #fff;
-  background-color: rgba(0, 0, 0, 0.7);
-  padding: 20px;
-  border-radius: 10px;
+  padding: 1rem 0;
+  position: sticky;
+  bottom: 0;
+  width: 100%;
 }
 
-/* Additional styles for responsiveness and form elements */
+/* Social media icon enhancements */
+.social-icons {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 10px;
+}
+
+.social-icons a {
+  color: #bbb; /* Lighter for visibility */
+  font-size: 24px;
+  margin: 0 15px;
+  transition: color 0.3s ease;
+}
+
+.social-icons a:hover {
+  color: #fff; /* Bright white on hover for effect */
+}
+
+/* Responsive adjustments for navbar */
 @media (max-width: 768px) {
   .navbar ul {
     flex-direction: column;
@@ -86,14 +100,12 @@
     margin: 5px 0;
   }
 
-  .home-content,
-  .hire-professional {
-    padding: 10px;
-    font-size: smaller;
+  .content {
+    margin-top: 100px; /* Increased margin for mobile nav */
   }
 }
 
-/* Form styles */
+/* Input styles for forms on all pages */
 input,
 select,
 textarea {
@@ -107,7 +119,7 @@ textarea {
 }
 
 input[type='submit'] {
-  background-color: #4caf50;
+  background-color: #4caf50; /* Consider changing for consistency */
   color: white;
   padding: 14px 20px;
   margin: 8px 0;
@@ -118,32 +130,4 @@ input[type='submit'] {
 
 input[type='submit']:hover {
   background-color: #45a049;
-}
-
-/* Footer styles */
-.footer {
-  background-color: #333;
-  color: white;
-  text-align: center;
-  padding: 10px;
-  position: sticky;
-  bottom: 0;
-  width: 100%;
-}
-
-.social-icons {
-  display: flex;
-  justify-content: center;
-  margin-bottom: 10px;
-}
-
-.social-icons a {
-  color: #fff;
-  font-size: 24px;
-  margin: 0 10px;
-  transition: color 0.3s ease;
-}
-
-.social-icons a:hover {
-  color: #ff0000;
 }
